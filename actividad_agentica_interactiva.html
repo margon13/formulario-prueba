@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Actividad interactiva: ¿Tu solución tiene capacidades de agente?</title>
+<style>
+  :root{--bg:#f6fbff;--card:#ffffff;--accent:#2aa6ff;--accent2:#34c58f;--text:#023047;--muted:#6b7280}
+  body{font-family:Inter,system-ui,Arial,sans-serif;background:linear-gradient(180deg,#f6fbff 0%,#eef8f3 100%);color:var(--text);margin:0;padding:28px;box-sizing:border-box}
+  .wrap{max-width:1000px;margin:0 auto}
+  header{display:flex;gap:16px;align-items:center}
+  h1{margin:0;font-size:28px}
+  p.lead{margin:6px 0 18px;color:var(--muted)}
+  .grid{display:grid;grid-template-columns:1fr 360px;gap:18px}
+  .card{background:var(--card);border-radius:12px;padding:18px;box-shadow:0 6px 18px rgba(2,24,58,.06)}
+  label{display:block;margin:10px 0 6px;font-weight:600}
+  input[type=text],textarea,select{width:100%;padding:10px;border-radius:8px;border:1px solid #e6eef6;background:#fbfeff;box-sizing:border-box}
+  textarea{min-height:72px;resize:vertical}
+  .btn{display:inline-block;padding:10px 12px;border-radius:10px;border:0;background:var(--accent);color:#fff;font-weight:700;cursor:pointer}
+  .btn.secondary{background:#e6f7f3;color:var(--accent2);font-weight:700}
+  .score{font-size:22px;font-weight:800;color:var(--accent)}
+  .meter{height:12px;border-radius:12px;background:#eaf6ff;overflow:hidden}
+  .meter > i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0%}
+  .hint{font-size:13px;color:var(--muted);margin-top:8px}
+  .mini{font-size:14px;color:var(--muted)}
+  .list{margin:8px 0;padding-left:18px}
+  .output{white-space:pre-wrap;background:#f8feff;padding:10px;border-radius:8px;border:1px solid #e6f8ff;color:#04243e}
+  footer{margin-top:14px;font-size:13px;color:var(--muted)}
+  .smalltxt{font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>¿Tu solución tiene capacidades de agente?</h1>
+        <p class="lead">Formulario interactivo para descubrir si tu solución todavía requiere trabajo manual o si ya integra capacidades agenticas.</p>
+      </div>
+    </header>
+
+    <div class="grid" style="margin-top:14px">
+      <div>
+        <section class="card" aria-labelledby="form-title">
+          <h2 id="form-title">Autoevaluación (responde con rapidez)</h2>
+
+          <label>1) Nombre del proyecto / equipo</label>
+          <input id="proj" type="text" placeholder="p. ej. ReservaSala">
+
+          <label>2) Descripción breve (1-2 frases)</label>
+          <textarea id="desc" placeholder="Describe la solución brevemente"></textarea>
+
+          <label>3) ¿Qué datos recibe el sistema automáticamente?</label>
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <label><input type="checkbox" name="datos" value="form"> Formulario</label>
+            <label><input type="checkbox" name="datos" value="sensors"> Sensores</label>
+            <label><input type="checkbox" name="datos" value="apis"> APIs externas</label>
+            <label><input type="checkbox" name="datos" value="files"> Archivos subidos</label>
+            <label><input type="checkbox" name="datos" value="none"> Ninguno</label>
+          </div>
+
+          <label>4) Lista breve de pasos que el sistema realiza automáticamente (una línea)</label>
+          <input id="steps_auto" type="text" placeholder="p. ej. extrae campos y muestra confirmación">
+
+          <label>5) Suponga que la solución ya está lista: ¿qué parte del trabajo seguiría haciendo el usuario manualmente?</label>
+          <textarea id="manual" placeholder="Escribe las tareas manuales que quedan (confirmar, crear evento, copiar info, etc.)"></textarea>
+
+          <label>6) ¿El sistema puede ejecutar acciones en otras herramientas sin intervención humana?</label>
+          <select id="exec">
+            <option value="no">No</option>
+            <option value="yes">Sí (indica cuáles luego)</option>
+          </select>
+
+          <label class="hint">Si respondiste "Sí": escribe brevemente qué acciones/qué APIs</label>
+          <input id="which_tools" type="text" placeholder="p. ej. Calendar API, Email API (opcional)">
+
+          <label>7) ¿El sistema planifica pasos, reintenta ante fallos o mantiene contexto?</label>
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <label><input id="plan" type="checkbox"> Planificar</label>
+            <label><input id="retry" type="checkbox"> Reintentar</label>
+            <label><input id="state" type="checkbox"> Mantener estado/contexto</label>
+          </div>
+
+          <label>8) ¿Qué pasa cuando algo falla? (una línea)</label>
+          <input id="onfail" type="text" placeholder="p. ej. reintenta 2 veces, si no notifica humano">
+
+          <div style="margin-top:12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+            <button id="calc" class="btn">Evaluar ahora</button>
+            <button id="copySummary" class="btn secondary">Copiar resumen</button>
+            <button id="downloadJSON" class="btn secondary">Descargar JSON</button>
+          </div>
+        </section>
+
+        <section class="card" style="margin-top:12px">
+          <h3>Mini‑tarea (convertir un paso manual)</h3>
+          <p class="mini">Pega una tarea manual (desde tu respuesta arriba) y te propongo un paso agentico + herramienta y prompt plantilla.</p>
+          <label>Tarea manual (ej: "Confirmar disponibilidad y crear evento")</label>
+          <input id="manualTask" type="text" placeholder="Escribe una tarea manual corta">
+          <div style="margin-top:8px;display:flex;gap:8px">
+            <button id="convert" class="btn">Convertir a paso agentico</button>
+            <button id="clearTask" class="btn secondary">Limpiar</button>
+          </div>
+          <div style="margin-top:10px">
+            <div><strong>Propuesta automática:</strong></div>
+            <div id="proposal" class="output smalltxt">Aquí aparecerá la sugerencia.</div>
+          </div>
+        </section>
+      </div>
+
+      <aside>
+        <section class="card">
+          <div>
+            <div class="smalltxt">Puntuación agentica</div>
+            <div style="display:flex;align-items:center;gap:12px;margin-top:8px">
+              <div class="score" id="score">—</div>
+              <div style="flex:1">
+                <div class="meter" aria-hidden="true"><i id="meterFill"></i></div>
+              </div>
+            </div>
+            <div class="hint" id="scoreHint">Presiona "Evaluar ahora" para ver feedback.</div>
+          </div>
+
+          <hr style="margin:12px 0;border:none;border-top:1px solid #eef6fb">
+
+          <div>
+            <strong>Feedback inmediato</strong>
+            <ul class="list" id="feedbackList"></ul>
+            <div class="hint">Pistas rápidas: si marcas "No" en ejecutar acciones o no tienes reintentos/estado, tu solución depende de trabajo manual.</div>
+          </div>
+        </section>
+
+        <section class="card" style="margin-top:12px">
+          <h4>Exportar / usar en clase</h4>
+          <p class="mini">Copiar o descargar para pegar en OpenCode o compartir con el profesor.</p>
+          <div style="margin-top:10px">
+            <button id="exportTxt" class="btn secondary">Copiar resumen breve</button>
+            <div class="hint" style="margin-top:8px">Los alumnos pueden pegar el JSON en su workspace.</div>
+          </div>
+        </section>
+
+        <section class="card" style="margin-top:12px">
+          <h4>Consejo rápido para el profe</h4>
+          <p class="smalltxt">Pide a cada grupo que convierta una de sus tareas manuales usando la mini‑herramienta y comparta la propuesta en 30s.</p>
+        </section>
+      </aside>
+    </div>
+
+    <footer class="smalltxt">Lista para presentar • Actividad interactiva local (sin subir datos) • Puedes usar en navegador y guardar resultados.</footer>
+  </div>
+
+<script>
+  function q(sel){return document.querySelector(sel)}
+  function qs(sel){return Array.from(document.querySelectorAll(sel))}
+  const calcBtn=q('#calc'), scoreEl=q('#score'), meter=q('#meterFill'), hint=q('#scoreHint'), feedback=q('#feedbackList')
+  const copyBtn=q('#copySummary'), downloadBtn=q('#downloadJSON'), exportTxt=q('#exportTxt')
+  const convertBtn=q('#convert'), proposal=q('#proposal'), clearTask=q('#clearTask')
+
+  function gather(){
+    const datos=qs('input[name="datos"]:checked').map(n=>n.value)
+    return {
+      project: q('#proj').value.trim(),
+      desc: q('#desc').value.trim(),
+      datos: datos,
+      steps_auto: q('#steps_auto').value.trim(),
+      manual: q('#manual').value.trim(),
+      exec: q('#exec').value,
+      which_tools: q('#which_tools').value.trim(),
+      plan: q('#plan').checked,
+      retry: q('#retry').checked,
+      state: q('#state').checked,
+      onfail: q('#onfail').value.trim()
+    }
+  }
+
+  function scoreAndFeedback(data){
+    let score=0; const notes=[]
+    if(data.exec==='yes'){ score+=2; notes.push('Puede ejecutar acciones en herramientas externas → +2') }
+    else { notes.push('No ejecuta acciones automáticamente → el usuario queda para ejecutar resultados manualmente.') }
+    if(data.plan){score+=1; notes.push('Planifica pasos → +1')}
+    if(data.retry){score+=1; notes.push('Tiene reintentos ante fallos → +1')}
+    if(data.state){score+=1; notes.push('Mantiene estado/contexto → +1')}
+    if(data.datos.includes('apis')||data.datos.includes('sensors')||data.datos.includes('files')){score+=1; notes.push('Conecta con fuentes externas (APIs/archivos/sensores) → +1')}
+    if(data.onfail.toLowerCase().includes('reint')||data.onfail.toLowerCase().includes('notifica')){score+=0.5; notes.push('Manejo de fallos básico → +0.5')}
+    if(data.datos.length===0 || (data.datos.length===1 && data.datos.includes('form'))){
+      notes.push('Entrada limitada (solo formulario) — normalmente necesita integración adicional.')
+    }
+    const maxScore=6.5
+    const pct=Math.min(100, Math.round((score/maxScore)*100))
+    let label='No agentic'
+    if(pct>=70) label='Agentic'
+    else if(pct>=35) label='Parcialmente agentic'
+    return {score:score, pct:pct, notes:notes, label:label}
+  }
+
+  calcBtn.addEventListener('click', function(){
+    const data=gather()
+    const res=scoreAndFeedback(data)
+    scoreEl.textContent=Math.round(res.pct)+'% — '+res.label
+    meter.style.width=res.pct+'%'
+    hint.textContent='Puntuación calculada sobre integración, acciones, estado y manejo de fallos.'
+    feedback.innerHTML=''
+    res.notes.forEach(function(n){
+      const li=document.createElement('li'); li.textContent=n; feedback.appendChild(li)
+    })
+  })
+
+  copyBtn.addEventListener('click', function(){
+    const d=gather()
+    const text = [
+      'Proyecto: '+d.project,
+      'Descripción: '+d.desc,
+      'Datos automáticos: '+(d.datos.join(', ')||'Ninguno'),
+      'Pasos automáticos: '+d.steps_auto,
+      'Tareas manuales: '+d.manual,
+      'Ejecuta acciones: '+d.exec+(d.which_tools?(' ('+d.which_tools+')'):''),
+      'Plan/Retry/State: '+[d.plan?'Planificar':'', d.retry?'Reintentar':'', d.state?'Estado':''].filter(Boolean).join(', '),
+      'Manejo fallos: '+d.onfail
+    ].join('\n')
+    navigator.clipboard.writeText(text).then(function(){alert('Resumen copiado al portapapeles')})
+  })
+
+  exportTxt.addEventListener('click', function(){
+    const d=gather()
+    const summary = {
+      project: d.project, description: d.desc, manual: d.manual,
+      agent_sketch: (d.exec==='yes' ? 'Tiene ejecución automática' : 'No ejecuta acciones')
+    }
+    navigator.clipboard.writeText(JSON.stringify(summary,null,2)).then(function(){alert('JSON breve copiado al portapapeles')})
+  })
+
+  downloadBtn.addEventListener('click', function(){
+    const d=gather()
+    const blob=new Blob([JSON.stringify(d,null,2)], {type:'application/json'})
+    const url=URL.createObjectURL(blob)
+    const a=document.createElement('a'); a.href=url; a.download=(d.project||'resultado')+'_autoeval.json'; document.body.appendChild(a); a.click()
+    URL.revokeObjectURL(url); a.remove()
+  })
+
+  convertBtn.addEventListener('click', function(){
+    const text=q('#manualTask').value.trim()
+    if(!text){proposal.textContent='Escribe una tarea manual breve arriba.'; return}
+    let tool='LLM + API', action='validar y automatizar', prompt=''
+    if(/confirmar|confirmación|disponibilidad/i.test(text)){
+      tool='Calendar API + Email API'
+      action='Comprobar disponibilidad y crear evento automáticamente'
+      prompt='Prompt plantilla: "Datos: {nombre, email, fecha, inicio, fin}. 1) Consulta CalendarAPI.available({fecha,inicio,fin}). 2) Si disponible: crea evento CalendarAPI.create_event(...). 3) Genera correo de confirmación con LLM y envía via EmailAPI.send(...)."'
+    } else if(/copiar|pegar/i.test(text)){
+      tool='Integración API / Webhook'
+      action='Extraer datos y enviar a la herramienta destino vía API'
+      prompt='Prompt: "Recibe los campos, transforma en JSON {nombre,email,...} y envía a endpoint externo /ingest via POST."'
+    } else if(/verificar|chequear|validar/i.test(text)){
+      tool='LLM (para normalizar) + reglas de validación'
+      action='Validar y normalizar campos automáticamente'
+      prompt='Prompt: "Normaliza fecha y hora a ISO, valida rango inicio<fin; devuelve {ok:true, campos_normalizados} o {ok:false, errores}."'
+    } else {
+      tool='API/LLM combinados'
+      action='Definir pipeline: validar → consultar → ejecutar → notificar'
+      prompt='Plantilla: "Input: {..}. 1) Valida; 2) Consulta disponibilidad (API); 3) Si OK: crea recurso (API); 4) Genera mensaje de confirmación (LLM) y envía."'
+    }
+    proposal.textContent = [
+      'Tarea manual: '+text,
+      '',
+      'Paso agentico sugerido: '+action,
+      'Herramientas sugeridas: '+tool,
+      '',
+      prompt
+    ].join('\n')
+  })
+
+  clearTask.addEventListener('click', function(){ q('#manualTask').value=''; proposal.textContent='Aquí aparecerá la sugerencia.' })
+
+  document.addEventListener('keydown', function(e){
+    if(e.key==='Enter' && document.activeElement && document.activeElement.tagName!=='TEXTAREA'){
+      e.preventDefault(); calcBtn.click()
+    }
+  })
+</script>
+</body>
+</html>
