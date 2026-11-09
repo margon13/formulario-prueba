@@ -133,13 +133,23 @@
           <option value="3">3 — Nueva en el país o en el mundo</option>
         </select>
 
-        <label for="validacion">Validación: ¿qué evidencia real tienes?</label>
+        <label for="validacion">Validación: ¿qué evidencia tienes de que el problema es real y el cliente pagaría por resolverlo?</label>
         <select id="validacion">
-          <option value="0">0 — Solo una idea, sin conversaciones</option>
-          <option value="1">1 — Hipótesis basada en observación</option>
-          <option value="2">2 — 5 o más entrevistas con clientes reales</option>
-          <option value="3">3 — Probada con clientes o con ventas reales</option>
+          <option value="0">0 — Ninguna: solo una idea, sin conversaciones ni datos</option>
+          <option value="1">1 — Datos internos u observación (ventas, merma, quejas), sin hablar con clientes</option>
+          <option value="2">2 — 5 o más entrevistas con clientes reales que describen el problema con sus palabras</option>
+          <option value="3">3 — Prueba real: preventa, pedido, piloto pagado o uso repetido (con cifras y fechas)</option>
         </select>
+        <div class="tipbox" style="margin-top:10px">
+          <strong>¿Evidencia de qué? De estas tres cosas, no de “me parece que sí”:</strong>
+          <ul style="margin:8px 0 0 18px;padding:0;line-height:1.5">
+            <li><strong>De quién es el problema:</strong> un cliente real (no familiar, no compañero), con nombre o tipo de negocio.</li>
+            <li><strong>De que le duele y lo dijo:</strong> el problema con sus palabras o una acción suya (consultó, reservó, probó, compró).</li>
+            <li><strong>De que pagaría o ya pagó:</strong> preventa, pedido, piloto pagado o uso repetido, con monto y fechas.</li>
+          </ul>
+          <div style="margin-top:8px"><strong>Para que cuente, registra:</strong> cuántas personas (mínimo 5), quiénes, qué dijeron o hicieron, cuándo y cuánto pagaron o usaron.</div>
+          <div style="margin-top:6px"><strong>Sí cuenta:</strong> 6 dueños de cafeterías entrevistados esta semana; 3 preventas cobradas; un piloto de 2 semanas con 40 pedidos. <strong>No cuenta:</strong> opiniones de amigos, “todos dicen que está bueno”, una encuesta sin preguntas de pago.</div>
+        </div>
 
         <label for="viabilidad">Viabilidad: ¿se puede implementar?</label>
         <select id="viabilidad">
@@ -157,7 +167,7 @@
 
         <label>Marca lo que ya puedes afirmar con evidencia</label>
         <div class="checks">
-          <label class="check"><input type="checkbox" id="cValor"> Tenemos evidencia de que el problema es prioritario para el cliente.</label>
+          <label class="check"><input type="checkbox" id="cValor"> Podemos nombrar clientes reales y lo que dijeron o hicieron: el problema es prioritario para ellos.</label>
           <label class="check"><input type="checkbox" id="cDiferencia"> Podemos explicar en una frase qué nos hace distintos de lo que ya existe.</label>
           <label class="check"><input type="checkbox" id="cModelo"> Sabemos cómo genera ingresos o ahorra costos.</label>
           <label class="check"><input type="checkbox" id="cEscala"> Se puede replicar en otra cafetería o en otro productor.</label>
@@ -216,7 +226,7 @@
         <h4>Test rápido de 3 preguntas</h4>
         <ul class="list">
           <li><strong>¿El cliente lo pediría?</strong> Si no duele, no es prioridad.</li>
-          <li><strong>¿Alguien pagaría por esto?</strong> La disposición a pagar valida el valor.</li>
+          <li><strong>¿Alguien pagaría por esto?</strong> No basta la opinión: una preventa, un pedido o una reserva pagada lo demuestra.</li>
           <li><strong>¿Es difícil de copiar?</strong> Marca, datos, comunidad o proceso propio.</li>
         </ul>
         <p class="smalltxt">Si las tres respuestas son “sí” con evidencia, estás frente a una innovación defendible.</p>
@@ -340,9 +350,9 @@
     var notes = [];
     if (d.novedad <= 1) notes.push('Novedad baja: la propuesta se parece a lo que ya existe. Busca un cambio que un cliente note y recuerde.');
     else notes.push('Novedad ' + d.novedad + '/3: hay un elemento nuevo; hazlo explícito en una frase.');
-    if (d.validacion <= 1) notes.push('Falta validación: habla con al menos 5 clientes reales antes de construir.');
-    else if (d.validacion === 2) notes.push('Buena base de entrevistas: convierte los hallazgos en una prueba con pago o uso real.');
-    else notes.push('Validación fuerte: ya tienes evidencia de uso o venta.');
+    if (d.validacion <= 1) notes.push('Falta validación: necesitas 5 o más entrevistas con clientes reales y registrar quién, qué dijo y cuándo.');
+    else if (d.validacion === 2) notes.push('Buena base de entrevistas: conviértela en una prueba con pago o uso real (preventa, pedido o piloto) y anota cifras.');
+    else notes.push('Validación fuerte: tienes evidencia documentada de pago, uso o repetición.');
     if (!d.valor) notes.push('No hay evidencia de que el problema sea prioritario: pregunta “¿qué pasa si no lo resolves?”.');
     if (!d.diferencia) notes.push('No está clara la diferencia: completa “esto es distinto porque…”.');
     if (!d.modelo) notes.push('Falta modelo: define quién paga, cuánto y cómo baja el costo.');
