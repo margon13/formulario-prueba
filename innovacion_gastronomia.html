@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>¿Tu propuesta es innovadora? — Cafetería y productor de ajo</title>
+<style>
+  :root{
+    --bg:#f6fbff;--card:#ffffff;--accent:#2aa6ff;--accent2:#34c58f;--accent3:#ff9f43;
+    --text:#023047;--muted:#6b7280;--line:#e6eef6;
+  }
+  *{box-sizing:border-box}
+  body{font-family:Inter,system-ui,Arial,sans-serif;background:linear-gradient(180deg,#f6fbff 0%,#eef8f3 100%);color:var(--text);margin:0;padding:28px}
+  .wrap{max-width:1060px;margin:0 auto}
+  h1{margin:0;font-size:28px;line-height:1.2}
+  h2{font-size:20px;margin:0 0 6px}
+  h3{font-size:17px;margin:0 0 6px}
+  h4{font-size:15px;margin:0 0 6px}
+  p.lead{margin:6px 0 18px;color:var(--muted)}
+  .grid{display:grid;grid-template-columns:1fr 370px;gap:18px}
+  @media(max-width:860px){.grid{grid-template-columns:1fr}}
+  .card{background:var(--card);border-radius:14px;padding:18px;box-shadow:0 6px 18px rgba(2,24,58,.06)}
+  .card + .card{margin-top:12px}
+  label{display:block;margin:12px 0 6px;font-weight:600;font-size:14px}
+  input[type=text],textarea,select{
+    width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--line);
+    background:#fbfeff;font:inherit;color:inherit
+  }
+  textarea{min-height:74px;resize:vertical}
+  select{cursor:pointer}
+  .hint{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.4}
+  .mini{font-size:14px;color:var(--muted)}
+  .smalltxt{font-size:13px;color:var(--muted)}
+  .btn{display:inline-block;padding:10px 14px;border-radius:10px;border:0;background:var(--accent);color:#fff;font-weight:700;cursor:pointer;font:inherit}
+  .btn.secondary{background:#e6f7f3;color:#1f8f68}
+  .btn.warm{background:var(--accent3);color:#fff}
+  .btn:hover{filter:brightness(.97)}
+  .segmented{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+  .case-opt{position:relative;border:2px solid var(--line);border-radius:12px;padding:14px;cursor:pointer;background:#fbfeff;transition:.15s}
+  .case-opt:hover{border-color:#bfe3ff}
+  .case-opt input{position:absolute;opacity:0;pointer-events:none}
+  .case-opt strong{display:block;font-size:15px;margin-bottom:2px}
+  .case-opt small{color:var(--muted)}
+  .case-opt.active{border-color:var(--accent);background:#f0f9ff;box-shadow:0 0 0 3px rgba(42,166,255,.12)}
+  .tipbox{margin-top:12px;padding:12px 14px;border-radius:12px;background:#fff8ef;border:1px solid #ffe3c2;font-size:14px}
+  .tipbox strong{color:#b25b00}
+  .checks{display:grid;gap:8px;margin-top:6px}
+  .check{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:#fbfeff;font-weight:500}
+  .check input{margin-top:3px;width:16px;height:16px;flex:0 0 auto;cursor:pointer}
+  .score{font-size:24px;font-weight:800;color:var(--accent)}
+  .meter{height:12px;border-radius:12px;background:#eaf6ff;overflow:hidden;margin-top:8px}
+  .meter > i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0%;transition:width .25s ease}
+  .badge{display:inline-block;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:800;letter-spacing:.2px}
+  .badge.low{background:#ffefef;color:#c0392b}
+  .badge.mid{background:#fff6e5;color:#b26a00}
+  .badge.high{background:#e9f9f1;color:#1f8f68}
+  .radar{margin-top:14px;display:grid;gap:10px}
+  .radar-row{display:grid;grid-template-columns:110px 1fr;align-items:center;gap:10px;font-size:13px}
+  .barbg{height:10px;border-radius:10px;background:#eef6fb;overflow:hidden}
+  .barbg > i{display:block;height:100%;border-radius:10px;background:linear-gradient(90deg,#8ed0ff,#34c58f);width:0%;transition:width .25s ease}
+  .list{margin:8px 0;padding-left:18px;font-size:14px;line-height:1.45}
+  .output{white-space:pre-wrap;background:#f8feff;padding:12px;border-radius:10px;border:1px solid #e6f8ff;color:#04243e;font-size:14px;line-height:1.5;min-height:60px}
+  footer{margin-top:16px;font-size:13px;color:var(--muted)}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .kpis{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:12px}
+  @media(max-width:520px){.kpis{grid-template-columns:1fr}}
+  .kpi{background:#f8fbff;border:1px solid var(--line);border-radius:10px;padding:10px;text-align:center}
+  .kpi b{display:block;font-size:18px;color:var(--accent2)}
+  .kpi span{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
+  .divider{border:none;border-top:1px solid #eef6fb;margin:14px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>¿Tu propuesta es innovadora?</h1>
+    <p class="lead">Formulario de asesoría para gastronomía: una cafetería y un emprendedor artesanal de ajo. Responde y descubre si tu solución es una simple mejora operativa o una innovación real —y qué te falta para que lo sea.</p>
+  </header>
+
+  <div class="grid" style="margin-top:14px">
+    <div>
+      <section class="card">
+        <h2>1) Elige tu caso</h2>
+        <p class="mini">Selecciona a quién estás asesorando. El formulario y las recomendaciones se adaptan.</p>
+        <div class="segmented" role="radiogroup" aria-label="Caso de asesoría">
+          <label class="case-opt active" id="optCafe">
+            <input type="radio" name="caso" value="cafeteria" checked>
+            <strong>☕ Cafetería</strong>
+            <small>Mejorar experiencia, ventas y operación</small>
+          </label>
+          <label class="case-opt" id="optAjo">
+            <input type="radio" name="caso" value="ajo">
+            <strong>🧄 Productor de ajo</strong>
+            <small>Producto artesanal, marca y canales</small>
+          </label>
+        </div>
+        <div class="tipbox" id="caseTip"></div>
+      </section>
+
+      <section class="card">
+        <h2>2) Contexto de la propuesta</h2>
+
+        <label for="team">Nombre del equipo</label>
+        <input id="team" type="text" placeholder="p. ej. Equipo 3">
+
+        <label for="solucion">Describe tu solución en 1–2 frases</label>
+        <textarea id="solucion" placeholder="¿Qué propones exactamente? ¿Para quién? ¿Qué cambia respecto a lo que hacen hoy?"></textarea>
+
+        <label for="problema">¿Qué problema concreto del negocio o del cliente resuelve?</label>
+        <input id="problema" type="text" placeholder="p. ej. 'pierden clientes en horas valle' o 'el ajo se vende sin marca y a bajo precio'">
+      </section>
+
+      <section class="card">
+        <h2>3) Chequeo de innovación</h2>
+        <p class="mini">Responde con honestidad: la mayoría de las ideas no son innovadoras todavía, y eso está bien — para eso estamos aquí.</p>
+
+        <label for="novedad">Novedad: ¿qué tan nueva es la propuesta?</label>
+        <select id="novedad">
+          <option value="0">0 — Ya existe y se usa en este negocio</option>
+          <option value="1">1 — Nueva para este negocio</option>
+          <option value="2">2 — Nueva en el mercado local / de la región</option>
+          <option value="3">3 — Nueva en el país o en el mundo</option>
+        </select>
+
+        <label for="validacion">Validación: ¿qué evidencia real tienes?</label>
+        <select id="validacion">
+          <option value="0">0 — Solo una idea, sin conversaciones</option>
+          <option value="1">1 — Hipótesis basada en observación</option>
+          <option value="2">2 — 5 o más entrevistas con clientes reales</option>
+          <option value="3">3 — Probada con clientes o con ventas reales</option>
+        </select>
+
+        <label for="viabilidad">Viabilidad: ¿se puede implementar?</label>
+        <select id="viabilidad">
+          <option value="0">0 — No sabemos qué se necesita</option>
+          <option value="1">1 — Sí, pero necesitamos ayuda o inversión</option>
+          <option value="2">2 — Sí, con los recursos actuales</option>
+        </select>
+
+        <label for="tech">Tecnología / IA: ¿aporta valor real?</label>
+        <select id="tech">
+          <option value="0">0 — No usa datos, automatización ni IA</option>
+          <option value="1">1 — Usa tecnología, pero no está claro el valor</option>
+          <option value="2">2 — Usa datos, automatización o agentes de IA con valor medible</option>
+        </select>
+
+        <label>Marca lo que ya puedes afirmar con evidencia</label>
+        <div class="checks">
+          <label class="check"><input type="checkbox" id="cValor"> Tenemos evidencia de que el problema es prioritario para el cliente.</label>
+          <label class="check"><input type="checkbox" id="cDiferencia"> Podemos explicar en una frase qué nos hace distintos de lo que ya existe.</label>
+          <label class="check"><input type="checkbox" id="cModelo"> Sabemos cómo genera ingresos o ahorra costos.</label>
+          <label class="check"><input type="checkbox" id="cEscala"> Se puede replicar en otra cafetería o en otro productor.</label>
+          <label class="check"><input type="checkbox" id="cImpacto"> Mejora algún impacto social o ambiental (residuos, comunidad, productores locales).</label>
+          <label class="check"><input type="checkbox" id="cExperimento"> Tenemos definido un experimento concreto para probarla esta semana.</label>
+        </div>
+
+        <div class="row" style="margin-top:14px">
+          <button id="calc" class="btn">Evaluar innovación</button>
+          <button id="copySummary" class="btn secondary">Copiar resumen</button>
+          <button id="downloadJSON" class="btn secondary">Descargar JSON</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <h3>4) Mini‑herramienta: de idea a innovación</h3>
+        <p class="mini">Escribe una idea o mejora que estés proponiendo. Te devuelvo cómo convertirla en una propuesta más innovadora para tu caso.</p>
+        <label for="idea">Tu idea (corta)</label>
+        <input id="idea" type="text" placeholder="p. ej. 'una tarjeta de fidelidad' o 'vender ajo pelado'">
+        <div class="row" style="margin-top:8px">
+          <button id="convert" class="btn warm">Convertir en propuesta innovadora</button>
+          <button id="clearIdea" class="btn secondary">Limpiar</button>
+        </div>
+        <div style="margin-top:10px">
+          <div><strong>Propuesta mejorada:</strong></div>
+          <div id="proposal" class="output">Aquí aparecerá la sugerencia.</div>
+        </div>
+      </section>
+    </div>
+
+    <aside>
+      <section class="card">
+        <h4>Nivel de innovación</h4>
+        <div class="row" style="justify-content:space-between;align-items:flex-end;margin-top:6px">
+          <div class="score" id="score">—</div>
+          <span class="badge mid" id="badge">Sin evaluar</span>
+        </div>
+        <div class="meter" aria-hidden="true"><i id="meterFill"></i></div>
+        <div class="hint" id="scoreHint">Completa el chequeo y pulsa "Evaluar innovación".</div>
+
+        <div class="kpis">
+          <div class="kpi"><b id="kNovedad">—</b><span>Novedad</span></div>
+          <div class="kpi"><b id="kValor">—</b><span>Valor</span></div>
+          <div class="kpi"><b id="kValidacion">—</b><span>Validación</span></div>
+        </div>
+
+        <hr class="divider">
+
+        <strong>Qué mejorar primero</strong>
+        <ul class="list" id="feedbackList">
+          <li class="smalltxt">Aún no hay resultados.</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h4>Test rápido de 3 preguntas</h4>
+        <ul class="list">
+          <li><strong>¿El cliente lo pediría?</strong> Si no duele, no es prioridad.</li>
+          <li><strong>¿Alguien pagaría por esto?</strong> La disposición a pagar valida el valor.</li>
+          <li><strong>¿Es difícil de copiar?</strong> Marca, datos, comunidad o proceso propio.</li>
+        </ul>
+        <p class="smalltxt">Si las tres respuestas son “sí” con evidencia, estás frente a una innovación defendible.</p>
+      </section>
+
+      <section class="card">
+        <h4>Exportar</h4>
+        <p class="mini">Copia el resumen para pegarlo en OpenCode o compártelo con el docente.</p>
+        <button id="exportTxt" class="btn secondary">Copiar resumen breve</button>
+      </section>
+    </aside>
+  </div>
+
+  <footer class="smalltxt">Actividad local: no se envían datos a ningún servidor. Basada en criterios simples de innovación (novedad, valor, validación, viabilidad, apropiabilidad e impacto).</footer>
+</div>
+
+<script>
+  var CASES = {
+    cafeteria: {
+      label: "Cafetería",
+      tip: "<strong>Caso cafetería:</strong> la innovación no es solo “tener wifi” o “un menú nuevo”. Busca cambios en la experiencia del cliente, el modelo de ingresos, la comunidad o la operación. Pregunta clave: ¿qué haría que un cliente vuelva y pague más, o que el negocio gaste menos?",
+      ideas: [
+        {re:/fidelidad|tarjeta|puntos|descuento/i, out:"Convierte la fidelidad en una experiencia con datos: un programa con niveles, beneficios personalizados y predicción de qué cliente está por dejar de venir. Herramienta: CRM simple + automatización de mensajes. Innovación: pasa de descuento a relación."},
+        {re:/menu|menú|carta|producto/i, out:"Diseña un menú con 'producto ancla' y rotación limitada por demanda real. Usa datos de ventas por franja para decidir qué producir cada día y reduce desperdicio. Innovación: menú dinámico basado en datos, no en intuición."},
+        {re:/wifi|espacio|ambiente|música/i, out:"Diferénciate por 'modo de uso': franjas para trabajar, conversar o eventos. Reserva de mesas y comunidad. Innovación: el espacio se convierte en servicio, no en decorado."},
+        {re:/suscrip|membres|plan/i, out:"Prueba una suscripción de café con beneficios claros (X tazas/mes, acceso a catas, prioridad). Valida con 15 clientes antes de lanzar. Innovación: ingreso recurrente y previsibilidad."},
+        {re:/residu|desperdici|sostenib|compost/i, out:"Convierte el desperdicio en propuesta: compost con productores locales, vasos retornables o 'café de aprovechamiento'. Mide kilos evitados y comunícalo. Innovación: impacto verificable como diferenciador."}
+      ],
+      fallback: "Para que sea innovador, define: (1) un cliente específico, (2) un cambio medible en su experiencia o en el costo, y (3) un experimento de 7 días con evidencia. Una mejora sin cliente ni métrica es solo una idea."
+    },
+    ajo: {
+      label: "Productor artesanal de ajo",
+      tip: "<strong>Caso productor de ajo:</strong> vender ajo a granel compite por precio. La innovación aparece al transformar el producto, construir marca y controlar el canal. Pregunta clave: ¿qué historia, certificación o formato hace que alguien pague más por tu ajo?",
+      ideas: [
+        {re:/pelado|limpio|procesad|listo/i, out:"Vender ajo pelado es conveniencia, pero compite fácil. Súbele capas: formatos por uso (sofrito, conserva, ajo negro), empaque con trazabilidad y marca, y venta directa a restaurantes. Innovación: producto + servicio + canal propio."},
+        {re:/marca|etiqueta|packaging|empaque/i, out:"Construye una marca con origen verificable: finca, variedad, cosecha y forma de cultivo. Código QR con historia y recetas. Innovación: el origen se vuelve prueba de valor, no adorno."},
+        {re:/export|mercado|venta|canal/i, out:"Prueba venta directa (ferias, D2C, suscripción mensual) y venta a restaurantes con ficha técnica del producto. Mide margen por canal. Innovación: cambias la relación de precio al controlar el canal."},
+        {re:/turismo|experiencia|visita|taller/i, out:"Abre la finca: taller de cosecha, cata de variedades de ajo y venta en origen. Combina experiencia + producto. Innovación: ingresos por experiencia, no solo por kilo."},
+        {re:/desperdici|residu|sostenib|organico|orgánico/i, out:"Aprovecha descartes en aceite, pasta o ajo negro; compost y economía circular con la comunidad. Mide y comunica el impacto. Innovación: menos merma y una historia verificable."}
+      ],
+      fallback: "Para que sea innovador, define: (1) un producto o formato con valor claro para un cliente específico, (2) una razón para pagar más (origen, transformación, canal, experiencia) y (3) una prueba con compradores reales esta semana."
+    }
+  };
+
+  function q(id){ return document.getElementById(id); }
+  function currentCase(){ return document.querySelector('input[name="caso"]:checked').value; }
+
+  function updateCase(){
+    var c = currentCase();
+    q('caseTip').innerHTML = CASES[c].tip;
+    q('optCafe').classList.toggle('active', c === 'cafeteria');
+    q('optAjo').classList.toggle('active', c === 'ajo');
+    if (typeof render === 'function') render();
+  }
+  document.querySelectorAll('input[name="caso"]').forEach(function(r){
+    r.addEventListener('change', updateCase);
+  });
+
+  function gather(){
+    return {
+      caso: currentCase(),
+      casoLabel: CASES[currentCase()].label,
+      team: q('team').value.trim(),
+      solucion: q('solucion').value.trim(),
+      problema: q('problema').value.trim(),
+      novedad: parseInt(q('novedad').value, 10) || 0,
+      validacion: parseInt(q('validacion').value, 10) || 0,
+      viabilidad: parseInt(q('viabilidad').value, 10) || 0,
+      tech: parseInt(q('tech').value, 10) || 0,
+      valor: q('cValor').checked,
+      diferencia: q('cDiferencia').checked,
+      modelo: q('cModelo').checked,
+      escala: q('cEscala').checked,
+      impacto: q('cImpacto').checked,
+      experimento: q('cExperimento').checked
+    };
+  }
+
+  function evaluateInnovation(d){
+    var raw = 0;
+    raw += d.novedad;          // 0..3
+    raw += d.validacion;       // 0..3
+    raw += d.viabilidad;       // 0..2
+    raw += d.tech;             // 0..2
+    var checks = [d.valor, d.diferencia, d.modelo, d.escala, d.impacto, d.experimento];
+    checks.forEach(function(c){ if(c) raw += 1; });
+
+    var pct = Math.round((raw / 16) * 100);
+    var label, cls;
+    if (pct < 35) { label = 'Mejora operativa'; cls = 'low'; }
+    else if (pct < 60) { label = 'Innovación incremental'; cls = 'mid'; }
+    else if (pct < 80) { label = 'Innovación adyacente'; cls = 'high'; }
+    else { label = 'Innovación radical'; cls = 'high'; }
+
+    var notes = [];
+    if (d.novedad <= 1) notes.push('Novedad baja: la propuesta se parece a lo que ya existe. Busca un cambio que un cliente note y recuerde.');
+    else notes.push('Novedad ' + d.novedad + '/3: hay un elemento nuevo; hazlo explícito en una frase.');
+    if (d.validacion <= 1) notes.push('Falta validación: habla con al menos 5 clientes reales antes de construir.');
+    else if (d.validacion === 2) notes.push('Buena base de entrevistas: convierte los hallazgos en una prueba con pago o uso real.');
+    else notes.push('Validación fuerte: ya tienes evidencia de uso o venta.');
+    if (!d.valor) notes.push('No hay evidencia de que el problema sea prioritario: pregunta “¿qué pasa si no lo resolves?”.');
+    if (!d.diferencia) notes.push('No está clara la diferencia: completa “esto es distinto porque…”.');
+    if (!d.modelo) notes.push('Falta modelo: define quién paga, cuánto y cómo baja el costo.');
+    if (!d.experimento) notes.push('Define un experimento de 7 días con una métrica simple.');
+    if (d.viabilidad === 0) notes.push('Viabilidad incierta: enumera los 3 recursos mínimos (personas, dinero, permisos).');
+    if (d.tech === 0) notes.push('Sin tecnología: no es obligatorio, pero considera un agente o automatización para reducir trabajo manual.');
+    if (!d.escala) notes.push('Escalabilidad: piensa qué cambiaría para replicarlo en otro negocio.');
+    if (!d.impacto) notes.push('Impacto: ¿qué mejora social o ambiental puedes medir?');
+    if (notes.length === 0) notes.push('Propuesta sólida: define el siguiente experimento y mide resultados.');
+
+    return {
+      raw: raw, pct: pct, label: label, cls: cls, notes: notes,
+      novedadPct: Math.round((d.novedad/3)*100),
+      valorPct: Math.round(((d.valor?1:0) + (d.diferencia?1:0) + (d.validacion/3)) / 3 * 100),
+      validacionPct: Math.round((d.validacion/3)*100)
+    };
+  }
+
+  var evaluated = false;
+
+  function render(){
+    if (!evaluated) return;
+    var d = gather();
+    var r = evaluateInnovation(d);
+    q('score').textContent = r.pct + '%';
+    q('badge').textContent = r.label;
+    q('badge').className = 'badge ' + r.cls;
+    q('meterFill').style.width = r.pct + '%';
+    q('kNovedad').textContent = r.novedadPct + '%';
+    q('kValor').textContent = r.valorPct + '%';
+    q('kValidacion').textContent = r.validacionPct + '%';
+    q('scoreHint').textContent = 'Nivel: ' + r.label + ' · ' + r.raw + '/16 puntos. ' + d.casoLabel + '.';
+    var ul = q('feedbackList');
+    ul.innerHTML = '';
+    r.notes.slice(0, 7).forEach(function(n){
+      var li = document.createElement('li'); li.textContent = n; ul.appendChild(li);
+    });
+  }
+
+  q('calc').addEventListener('click', function(){ evaluated = true; render(); });
+  ['novedad','validacion','viabilidad','tech'].forEach(function(id){
+    q(id).addEventListener('change', function(){ evaluated = true; render(); });
+  });
+  ['cValor','cDiferencia','cModelo','cEscala','cImpacto','cExperimento'].forEach(function(id){
+    q(id).addEventListener('change', function(){ evaluated = true; render(); });
+  });
+
+  q('convert').addEventListener('click', function(){
+    var text = q('idea').value.trim();
+    if (!text) {
+      q('proposal').textContent = 'Escribe una idea breve arriba para poder convertirla.';
+      return;
+    }
+    var c = CASES[currentCase()];
+    var suggestion = null;
+    for (var i = 0; i < c.ideas.length; i++) {
+      if (c.ideas[i].re.test(text)) { suggestion = c.ideas[i].out; break; }
+    }
+    if (!suggestion) suggestion = c.fallback;
+    q('proposal').textContent = [
+      'Idea original: ' + text,
+      '',
+      'Propuesta innovadora:',
+      suggestion,
+      '',
+      'Siguiente paso (esta semana):',
+      '1) Elige 1 cliente concreto. 2) Define 1 métrica (pago, uso, repetición). 3) Prueba en 7 días y registra evidencia.'
+    ].join('\n');
+    render();
+  });
+
+  q('clearIdea').addEventListener('click', function(){
+    q('idea').value = '';
+    q('proposal').textContent = 'Aquí aparecerá la sugerencia.';
+  });
+
+  q('copySummary').addEventListener('click', function(){
+    var d = gather();
+    var r = evaluateInnovation(d);
+    var txt = [
+      'Caso: ' + d.casoLabel,
+      'Equipo: ' + d.team,
+      'Solución: ' + d.solucion,
+      'Problema: ' + d.problema,
+      'Nivel de innovación: ' + r.label + ' (' + r.pct + '%)',
+      'Novedad: ' + d.novedad + '/3 | Validación: ' + d.validacion + '/3 | Viabilidad: ' + d.viabilidad + '/2 | Tecnología: ' + d.tech + '/2',
+      'Evidencias: ' + [
+        d.valor?'valor':'', d.diferencia?'diferenciación':'', d.modelo?'modelo':'',
+        d.escala?'escalabilidad':'', d.impacto?'impacto':'', d.experimento?'experimento':''
+      ].filter(Boolean).join(', '),
+      'Qué mejorar: ' + r.notes.slice(0,4).join(' ')
+    ].join('\n');
+    navigator.clipboard.writeText(txt).then(function(){ alert('Resumen copiado al portapapeles'); });
+  });
+
+  q('exportTxt').addEventListener('click', function(){
+    var d = gather();
+    var r = evaluateInnovation(d);
+    var summary = {
+      caso: d.casoLabel, equipo: d.team, solucion: d.solucion, problema: d.problema,
+      nivel: r.label, puntaje: r.pct, notas: r.notes.slice(0,4)
+    };
+    navigator.clipboard.writeText(JSON.stringify(summary, null, 2)).then(function(){ alert('JSON breve copiado al portapapeles'); });
+  });
+
+  q('downloadJSON').addEventListener('click', function(){
+    var d = gather();
+    var r = evaluateInnovation(d);
+    var payload = { datos: d, resultado: { nivel: r.label, puntaje: r.pct, notas: r.notes } };
+    var blob = new Blob([JSON.stringify(payload, null, 2)], {type:'application/json'});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = (d.team || 'innovacion') + '_' + d.caso + '.json';
+    document.body.appendChild(a); a.click();
+    URL.revokeObjectURL(url); a.remove();
+  });
+
+  updateCase();
+  render();
+</script>
+</body>
+</html>
