@@ -36,6 +36,7 @@
   .btn.warm{background:var(--accent3);color:#fff}
   .btn:hover{filter:brightness(.97)}
   .segmented{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+  @media(max-width:520px){.segmented{grid-template-columns:1fr}}
   .case-opt{position:relative;border:2px solid var(--line);border-radius:12px;padding:14px;cursor:pointer;background:#fbfeff;transition:.15s}
   .case-opt:hover{border-color:#bfe3ff}
   .case-opt input{position:absolute;opacity:0;pointer-events:none}
@@ -74,7 +75,7 @@
 <div class="wrap">
   <header>
     <h1>¿Tu propuesta es innovadora?</h1>
-    <p class="lead">Formulario de asesoría para gastronomía: una cafetería y un emprendedor artesanal de ajo. Responde y descubre si tu solución es una simple mejora operativa o una innovación real —y qué te falta para que lo sea.</p>
+    <p class="lead">Formulario de asesoría para gastronomía: una cafetería, un restaurante, una empresa de catering y un emprendedor artesanal de ajo. Responde y descubre si tu solución es una simple mejora operativa o una innovación real —y qué te falta para que lo sea.</p>
   </header>
 
   <div class="grid" style="margin-top:14px">
@@ -86,7 +87,17 @@
           <label class="case-opt active" id="optCafe">
             <input type="radio" name="caso" value="cafeteria" checked>
             <strong>☕ Cafetería</strong>
-            <small>Mejorar experiencia, ventas y operación</small>
+            <small>Experiencia, ventas y operación diaria</small>
+          </label>
+          <label class="case-opt" id="optRest">
+            <input type="radio" name="caso" value="restaurante">
+            <strong>🍽️ Restaurante</strong>
+            <small>Menú, reservas, margen y experiencia</small>
+          </label>
+          <label class="case-opt" id="optCatering">
+            <input type="radio" name="caso" value="catering">
+            <strong>🥘 Catering</strong>
+            <small>Eventos, logística y clientes corporativos</small>
           </label>
           <label class="case-opt" id="optAjo">
             <input type="radio" name="caso" value="ajo">
@@ -236,6 +247,30 @@
       ],
       fallback: "Para que sea innovador, define: (1) un cliente específico, (2) un cambio medible en su experiencia o en el costo, y (3) un experimento de 7 días con evidencia. Una mejora sin cliente ni métrica es solo una idea."
     },
+    restaurante: {
+      label: "Restaurante",
+      tip: "<strong>Caso restaurante:</strong> la innovación no es solo “cambiar la carta”. Busca cambios en el menú, el margen, las reservas, la experiencia o el canal de venta. Pregunta clave: ¿qué plato, servicio o formato hace que el cliente vuelva, gaste más o te deje más margen?",
+      ideas: [
+        {re:/menu|menú|carta|plato/i, out:"Haz 'ingeniería de menú' con datos: margen y rotación por plato, un plato ancla que atraiga y platos de alto margen bien ubicados en la carta. Prueba cambios durante 2 semanas y compara ticket promedio. Innovación: decisiones de carta basadas en margen, no en gusto."},
+        {re:/reserva|no.?show|mesa|turno/i, out:"Rediseña las reservas: recordatorios automáticos, depósito para franjas de alta demanda y lista de espera inteligente. Mide no-shows antes y después. Innovación: recuperas mesas perdidas sin subir precios."},
+        {re:/delivery|domicilio|reparto|para llevar/i, out:"Separa la carta de salón de la de delivery: platos que viajan bien, empaque propio y precio que cubra comisión. Prueba un canal directo (WhatsApp/web) con pedidos anticipados. Innovación: controlas el margen del canal."},
+        {re:/experiencia|cata|maridaje|chef|evento/i, out:"Crea una experiencia difícil de copiar (menú degustación, chef's table, maridaje o taller). Véndela con cupo limitado y reserva prepagada. Innovación: ingresos por experiencia y no solo por plato."},
+        {re:/desperdici|merma|sostenib|residu|compost/i, out:"Convierte la merma en propuesta: menú del día con excedentes, compost con productores locales o platos de aprovechamiento. Mide kilos y costos evitados. Innovación: menos costo y una historia verificable."}
+      ],
+      fallback: "Para que sea innovador, define: (1) un cliente y una ocasión de consumo concretos, (2) un cambio medible en ticket, margen, repetición o merma, y (3) una prueba de 2 semanas con evidencia. Cambiar un plato sin métrica es solo una idea."
+    },
+    catering: {
+      label: "Empresa de catering",
+      tip: "<strong>Caso catering:</strong> compites por logística, confianza y margen. La innovación aparece al estandarizar sin perder personalización, asegurar contratos recurrentes y planificar la producción. Pregunta clave: ¿qué hace que un cliente corporativo te contrate otra vez y que tu operación gane margen?",
+      ideas: [
+        {re:/empresa|corporativ|oficina|convenio/i, out:"Diseña un contrato B2B recurrente: menús por convenio, facturación mensual y reporte de consumo. Prueba con una empresa durante un mes. Innovación: ingresos previsibles en lugar de eventos sueltos."},
+        {re:/boda|evento|fiesta|social/i, out:"Crea paquetes modulares (base + extras) con prueba de degustación y personalización guiada por datos del evento (invitados, restricciones, horario). Innovación: personalización sin rehacer la operación cada vez."},
+        {re:/logistic|transporte|ruta|entrega|montaje/i, out:"Optimiza producción y rutas: planifica por capacidad de cocina, agrupa entregas y usa trazabilidad de temperatura. Mide entregas a tiempo y merma. Innovación: la logística se vuelve tu ventaja competitiva."},
+        {re:/menu|menú|dieta|vegan|celiac|alergia/i, out:"Menús modulares con base común y variantes (vegano, sin gluten, sin lactosa) manteniendo margen. Documenta alérgenos y capacidad de sustitución. Innovación: más cobertura de clientes con la misma cocina."},
+        {re:/presupuesto|cotiza|precio|propuesta/i, out:"Automatiza la cotización con reglas de costo, disponibilidad y número de invitados; genera la propuesta en minutos y con margen protegido. Innovación: velocidad comercial y menos errores de precio."}
+      ],
+      fallback: "Para que sea innovador, define: (1) un cliente concreto (empresa, boda, institución), (2) una mejora medible en margen, repetición o entregas a tiempo, y (3) una prueba con un evento o contrato real. Más platos sin proceso no es innovación."
+    },
     ajo: {
       label: "Productor artesanal de ajo",
       tip: "<strong>Caso productor de ajo:</strong> vender ajo a granel compite por precio. La innovación aparece al transformar el producto, construir marca y controlar el canal. Pregunta clave: ¿qué historia, certificación o formato hace que alguien pague más por tu ajo?",
@@ -257,6 +292,8 @@
     var c = currentCase();
     q('caseTip').innerHTML = CASES[c].tip;
     q('optCafe').classList.toggle('active', c === 'cafeteria');
+    q('optRest').classList.toggle('active', c === 'restaurante');
+    q('optCatering').classList.toggle('active', c === 'catering');
     q('optAjo').classList.toggle('active', c === 'ajo');
     if (typeof render === 'function') render();
   }
